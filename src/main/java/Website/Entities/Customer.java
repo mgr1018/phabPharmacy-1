@@ -7,6 +7,7 @@ public class Customer {
     public String email;
     public String address;
     public String phone_number;
+    public int id;
 
     public Customer(String first_name, String last_name, String postcode, String email, String address, String phone_number){
         this.first_name = first_name;
@@ -17,4 +18,7 @@ public class Customer {
         this.phone_number = phone_number;
     }
 
+    public void getId(int id) {
+        this.id = id;
+    }
 }

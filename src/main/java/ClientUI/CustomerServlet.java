@@ -1,41 +1,36 @@
 package ClientUI;
-import Website.Entities.Customer;
-import Website.Entities.Product;
-import com.google.gson.Gson;
 
+import Website.Entities.Customer;
+import com.google.gson.Gson;
+//import AccessClasses.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.sql.*;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns={"/onlineorders"},loadOnStartup = 1)
-public class OnlineOrdersServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/customerdeets"},loadOnStartup = 1)
+public class CustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         //SqlSetup tables = new SqlSetup();
         //SelectProduct quantity = new SelectProduct("'4 flu'", "'Benylin'");
-        // resp.getWriter().write("<html> <head> <title>CMDMC</title> </head><body> <h1>Value Accessed " + quantity.quant + "</h1> </body> </html>");
+        //resp.getWriter().write("<html> <head> <title>CMDMC</title> </head><body> <h1>Value Accessed " + "i"+ "</h1> </body> </html>");
         resp.getWriter().write(req.getServletPath());
     }
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        AccessOrderedProduct p = new AccessOrderedProduct(reqBody);
-        Product prod = new Product(Integer.valueOf(p.getBarcode()), p.getBrand(), p.getName(), Integer.valueOf(p.getQty()), p.getCategory());
-        //System.out.println(c.name);
         Gson gson = new Gson();
-        String jsonString = gson.toJson(prod);
+        AccessOnlineCustomer onlineCustomer = new AccessOnlineCustomer(reqBody);
+        Customer c = new Customer(onlineCustomer.getFirstName(),onlineCustomer.getLastName(), onlineCustomer.getPostcode(), onlineCustomer.getEmail(), onlineCustomer.getPostalAddress(), onlineCustomer.getContactNo());
+        String jsonString = gson.toJson(c);
         resp.setContentType("application/json");
         resp.getWriter().write(jsonString);
     }
-}
 
+}

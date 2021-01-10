@@ -22,6 +22,7 @@ public class AddCustomer {
             ResultSet rs = stmt1.executeQuery(sqlStr);
             if (rs.next()) {
                 int id = rs.getInt("id");
+                cust.getId(id);
             }
 
             stmt2.execute("INSERT INTO card_details (card_no,cvv,sort_code,account_no,customer_id) VALUES(cc.cardNumber,cc.cvv,cc.sortCode,cc.accountNumber,id);");
