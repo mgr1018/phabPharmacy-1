@@ -1,3 +1,9 @@
+/* This class goes trough  all the customers from the customer table 
+   in the database, and adds them into the list of all customers.
+   This list will be accessed in the client UI to display in a table all 
+   registered customers with a pensing online order
+*/
+
 package Website.Functions;
 
 import java.sql.*;
